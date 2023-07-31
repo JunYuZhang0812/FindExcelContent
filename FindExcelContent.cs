@@ -198,7 +198,7 @@ namespace FindExcelContent
                 var rowData = sheet.GetRow(row);
                 if (rowData == null) break;
                 var maxCol = rowData.LastCellNum;
-                for (int col = 0; col < maxCol; col++)
+                for (int col = 0; col <= maxCol; col++)
                 {
                     var cell = rowData.GetCell(col);
                     if (cell == null) continue;
