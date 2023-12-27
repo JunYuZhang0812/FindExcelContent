@@ -39,6 +39,8 @@ namespace FindExcelContent
             this.m_textProgress = new System.Windows.Forms.Label();
             this.m_btnBegin = new System.Windows.Forms.Button();
             this.m_timer = new System.Windows.Forms.Timer(this.components);
+            this.m_textSearch = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -52,18 +54,15 @@ namespace FindExcelContent
             // 
             // m_textDirPath
             // 
-            this.m_textDirPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.m_textDirPath.Location = new System.Drawing.Point(95, 6);
             this.m_textDirPath.Name = "m_textDirPath";
-            this.m_textDirPath.Size = new System.Drawing.Size(531, 21);
+            this.m_textDirPath.Size = new System.Drawing.Size(326, 21);
             this.m_textDirPath.TabIndex = 1;
             this.m_textDirPath.TextChanged += new System.EventHandler(this.m_textDirPath_TextChanged);
             // 
             // m_btnSelectDir
             // 
-            this.m_btnSelectDir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.m_btnSelectDir.Location = new System.Drawing.Point(632, 6);
+            this.m_btnSelectDir.Location = new System.Drawing.Point(427, 6);
             this.m_btnSelectDir.Name = "m_btnSelectDir";
             this.m_btnSelectDir.Size = new System.Drawing.Size(75, 21);
             this.m_btnSelectDir.TabIndex = 2;
@@ -80,8 +79,8 @@ namespace FindExcelContent
             this.m_tree.Name = "m_tree";
             this.m_tree.Size = new System.Drawing.Size(776, 379);
             this.m_tree.TabIndex = 3;
-            this.m_tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.m_tree_NodeDoubleClick);
             this.m_tree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.m_tree_NodeClick);
+            this.m_tree.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.m_tree_NodeDoubleClick);
             // 
             // m_asyncWorker
             // 
@@ -104,6 +103,7 @@ namespace FindExcelContent
             // 
             this.m_textProgress.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.m_textProgress.AutoSize = true;
+            this.m_textProgress.BackColor = System.Drawing.Color.Transparent;
             this.m_textProgress.Location = new System.Drawing.Point(18, 424);
             this.m_textProgress.Name = "m_textProgress";
             this.m_textProgress.Size = new System.Drawing.Size(71, 12);
@@ -125,11 +125,31 @@ namespace FindExcelContent
             // 
             this.m_timer.Tick += new System.EventHandler(this.m_timer_Tick);
             // 
+            // m_textSearch
+            // 
+            this.m_textSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.m_textSearch.Location = new System.Drawing.Point(595, 6);
+            this.m_textSearch.Name = "m_textSearch";
+            this.m_textSearch.Size = new System.Drawing.Size(100, 21);
+            this.m_textSearch.TabIndex = 7;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(524, 10);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(65, 12);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "查找内容：";
+            // 
             // FindExcelContent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 443);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.m_textSearch);
             this.Controls.Add(this.m_textProgress);
             this.Controls.Add(this.m_btnBegin);
             this.Controls.Add(this.m_sliderProgress);
@@ -155,6 +175,8 @@ namespace FindExcelContent
         private System.Windows.Forms.Label m_textProgress;
         private System.Windows.Forms.Button m_btnBegin;
         private System.Windows.Forms.Timer m_timer;
+        private System.Windows.Forms.TextBox m_textSearch;
+        private System.Windows.Forms.Label label2;
     }
 }
 

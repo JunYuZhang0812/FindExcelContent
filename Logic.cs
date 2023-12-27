@@ -77,5 +77,25 @@ namespace FindExcelContent
             }
             return fileList;
         }
+        public static string ArrToString(string[] arr)
+        {
+            if (arr == null) return "null";
+            string s = "";
+            for (int i = 0; i < arr.Length; i++)
+            {
+                s += arr[i] + " ";
+            }
+            return s;
+        }
+        public static string ArrToString(List<string> arr)
+        {
+            if (arr == null) return "null";
+            string s = "";
+            for (int i = 0; i < arr.Count; i++)
+            {
+                s += arr[i] + " ";
+            }
+            return s;
+        }
     }
 }

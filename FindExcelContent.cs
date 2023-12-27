@@ -58,7 +58,7 @@ namespace FindExcelContent
         {
             InitializeComponent();
             InitPanel();
-            //if( Logic.IsExternalCall )
+            if( Logic.IsExternalCall )
             {
                 Delay(0.2f, () =>
                 {
@@ -73,6 +73,10 @@ namespace FindExcelContent
             m_textDirPath.Text = Logic.DirPath;
             m_timer.Interval = 100;
             m_timer.Start();
+            if( Logic.FindNameList.Count > 0 )
+            {
+                m_textSearch.Text = Logic.ArrToString(Logic.FindNameList);
+            }
         }
 
         private void m_textDirPath_TextChanged(object sender, EventArgs e)
@@ -106,7 +110,19 @@ namespace FindExcelContent
                 MessageBox.Show("请选择要查找的文件");
                 return;
             }
-            var result = MessageBox.Show("请确认配置表文件夹路径是否正确，如需修改，请点击[否]，然后手动选择路径，最后点击[开始]。\r\n另外请关闭当前文件夹下打开的所有Excel！", "提示", MessageBoxButtons.YesNo);
+            else if( !Logic.IsExternalCall )
+            {
+                Logic.FindNameList.Clear();
+                if (string.IsNullOrEmpty(m_textSearch.Text)) return;
+                var arr = m_textSearch.Text.Trim().Split(' ');
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    Logic.FindNameList.Add(arr[i]);
+                }
+            }
+            Logic.IsExternalCall = false;
+            //\r\n另外请关闭当前文件夹下打开的所有Excel！
+            var result = MessageBox.Show("请确认配置表文件夹路径是否正确，如需修改，请点击[否]，然后手动选择路径，最后点击[开始]。", "提示", MessageBoxButtons.YesNo);
             if( result == DialogResult.No )
             {
                 return;
@@ -122,16 +138,12 @@ namespace FindExcelContent
             m_resultDic.Clear();
             m_tree.Nodes.Clear();
 
-            if(Logic.IsExternalCall)
+            var findNameList = Logic.FindNameList;
+            for (int i = 0; i < findNameList.Count; i++)
             {
-                var findNameList = Logic.FindNameList;
-                for (int i = 0; i < findNameList.Count; i++)
-                {
-                    var findName = findNameList[i];
-                    m_resultDic.Add(findName, new Dictionary<string, Dictionary<string, List<ResultInfo>>>());
-                }
+                var findName = findNameList[i];
+                m_resultDic.Add(findName, new Dictionary<string, Dictionary<string, List<ResultInfo>>>());
             }
-
             m_asyncWorker.RunWorkerAsync();
         }
 
@@ -153,7 +165,7 @@ namespace FindExcelContent
             IWorkbook workbook = null;
             try
             {
-                using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read))
+                using (FileStream file = new FileStream(path, FileMode.Open, FileAccess.Read,FileShare.Read))
                 {
                     if (path.EndsWith(".xls"))
                         workbook = new HSSFWorkbook(file);
@@ -193,26 +205,23 @@ namespace FindExcelContent
         private void CheckSheet( ISheet sheet )
         {
             var maxRow = sheet.LastRowNum;
-            for (int row = 0; row < maxRow; row++)
+            for (int row = 0; row <= maxRow; row++)
             {
                 var rowData = sheet.GetRow(row);
-                if (rowData == null) break;
+                if (rowData == null) continue;
                 var maxCol = rowData.LastCellNum;
                 for (int col = 0; col <= maxCol; col++)
                 {
                     var cell = rowData.GetCell(col);
                     if (cell == null) continue;
                     var value = GetCellValue(cell);
-                    if( Logic.IsExternalCall )
+                    var findNameList = Logic.FindNameList;
+                    for (int i = 0; i < findNameList.Count; i++)
                     {
-                        var findNameList = Logic.FindNameList;
-                        for (int i = 0; i < findNameList.Count; i++)
+                        var findName = findNameList[i];
+                        if (value.Contains(findName))
                         {
-                            var findName = findNameList[i];
-                            if (value.Contains(findName))
-                            {
-                                AddResult(findName, row, col, value);
-                            }
+                            AddResult(findName, row, col, value);
                         }
                     }
                 }

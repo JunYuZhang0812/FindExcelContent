@@ -31,7 +31,6 @@ E:\git\FindExcelContent\FindExcelContent\bin\Debug\BouncyCastle.Crypto.xml
 E:\git\FindExcelContent\FindExcelContent\bin\Debug\ICSharpCode.SharpZipLib.pdb
 E:\git\FindExcelContent\FindExcelContent\bin\Debug\ICSharpCode.SharpZipLib.xml
 E:\git\FindExcelContent\FindExcelContent\obj\Debug\FindExcelContent.csproj.AssemblyReference.cache
-E:\git\FindExcelContent\FindExcelContent\obj\Debug\FindExcelContent.csproj.SuggestedBindingRedirects.cache
 E:\git\FindExcelContent\FindExcelContent\obj\Debug\FindExcelContent.FindExcelContent.resources
 E:\git\FindExcelContent\FindExcelContent\obj\Debug\FindExcelContent.Properties.Resources.resources
 E:\git\FindExcelContent\FindExcelContent\obj\Debug\FindExcelContent.csproj.GenerateResource.cache
